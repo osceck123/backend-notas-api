@@ -7,7 +7,6 @@ const connection = require('../database/sql');
 const AgregarNotas = async (req, res) => {
     try {
       const { title, content, userId} = req.body;
-      console.log(title, content, userId, "que es esto")
     connection.modules.connection.query('INSERT INTO notes (title, content, user_id) VALUES (?, ?, ?)', [title, content, userId], (error, results) => {
         if (error) {
           console.error('Error creating note:', error);
@@ -24,9 +23,10 @@ const AgregarNotas = async (req, res) => {
   
 
 //buscat todas las notas
-const BuscarNotas = async (req, res) => {
+const BuscarUnaNota = async (req, res) => {
     try {
-      const userId = req.user.userId;
+      const userId = req.body.id;
+      console.log(userId, "que tiene user id")
       connection.modules.connection.query('SELECT * FROM notes WHERE user_id = ?', [userId], (error, results) => {
         if (error) {
           console.error('Error fetching notes:', error);
@@ -49,7 +49,6 @@ const BuscarNotas = async (req, res) => {
           res.status(500).send({ message: 'Error fetching notes' });
           return;
         }
-        console.log(results, "que notas traes")
         res.send(results);
       });
     } catch (error) {
@@ -94,4 +93,4 @@ const EliminarUnaNota = async (req, res) => {
   
 
  //aqui van los exports 
- module.exports = {AgregarNotas, BuscarNotas, ActualizarUnaNota, EliminarUnaNota, BuscarTodasNotas} 
+ module.exports = {AgregarNotas, BuscarUnaNota, ActualizarUnaNota, EliminarUnaNota, BuscarTodasNotas} 

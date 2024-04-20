@@ -4,7 +4,7 @@ const router = Router()
 const { authenticateToken } = require('../middleware/middleware');
 
 //aqui van los controllers requeridos
-const {AgregarNotas, BuscarNotas, ActualizarUnaNota, EliminarUnaNota, BuscarTodasNotas} = require('../controller/notas.controller');
+const {AgregarNotas, BuscarUnaNota, ActualizarUnaNota, EliminarUnaNota, BuscarTodasNotas} = require('../controller/notas.controller');
 const { crearUsuario, buscarTodosLosUsuarios, actualizarUsuario, eliminarUsuario } = require('../controller/usuario.controller');
 const {handleChatConnection} = require('../controller/chat.controller');
 
@@ -15,7 +15,7 @@ const {login,  singup} = require('../controller/login_singup.controller');
 router.post('/notes', authenticateToken, AgregarNotas);
   
 //Buscar todas las notas
-router.get('/notes', BuscarNotas);
+router.post('/buscarNota' ,BuscarUnaNota);
 
 //BuscarTodasLasNotas
 router.get('/notas', BuscarTodasNotas);
